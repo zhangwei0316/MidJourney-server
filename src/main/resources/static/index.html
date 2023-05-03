@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图片生成器</title>
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<script>
+    // 创建WebSocket连接
+    var socket = new WebSocket("ws://localhost:8099/websocket");
+
+    // 连接成功回调函数
+    socket.onopen = function() {
+        console.log("WebSocket连接成功");
+    };
+
+    // 接收到消息回调函数
+    socket.onmessage = function(event) {
+        console.log("接收到消息：" + event.data);
+        $('#img').attr('src', event.data);
+    };
+
+    // 发送消息
+    function sendMessage() {
+        var prompt = document.getElementById("prompt").value;
+        socket.send(prompt);
+    }
+</script>
+
+<div><input id="prompt" placeholder="输入提示语" style="height: 30px"/></div>
+<div><input id="btn" type="button" height="30px" value="提交" onclick="sendMessage()"/></div>
+<div><img id="img" src="/img/timg.jpg"></div>
+</body>
+<style>
+   div{
+       display: flex; /**/
+       justify-content: center; /*水平居中*/
+       align-items: Center; /*垂直居中*/
+   }
+   input{
+       margin-bottom: 10px;
+   }
+    #img{
+        height: 512px;
+    }
+</style>
+</html>

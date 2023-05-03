@@ -1,0 +1,11 @@
+server:
+  port: 8099
+
+
+spring:
+  datasource:
+    name: yeshi
+    url: jdbc:mysql://localhost:3306/mysql
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
